@@ -1,0 +1,73 @@
+﻿Vincent Cheng
+CSE 467/ Linguistics 567
+Project 1
+
+
+
+
+                        
+Introduction
+
+
+        Language Identification is all about determination. As demonstrated in our project, we are given a large corpus, and based off this corpus with thousands of texts or document Features, we are trying to determine the source of the text. Or In our case, the source language of the text which is a bunch of movie titles which we can separate using character n - grams. In doing so, we can use these character n grams, lambda smoothing, statistics and probability, computer programming, determine a particular natural language. Thus we can accurately predictions by breaking the problem into smaller steps. So what is a classifier? It is how we can identify something in particular. I are given features that help us with the identification process. And in our case, we are identifying the natural languages of the given texts.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Model
+
+
+        So we implemented a character n - gram model. We are given a huge corpus with parsing code and the code to extract the n grams. Per the corpus, we have thousands of documents of movie subtitles and their language of origin. We have a train and test set as well as a dev file to compile and run our code. Then eventually be able to get the accuracy of our predictions*. 
+        So for my model, we need to implement Naive Bayes Classifier Probabilities in order to be able to identify the languages. So, the first thing we had to do fill out our given data structures. We need two maps, one for iterating through the corpus and adding a count for each time a language appears in the text. And the other one is for the ngrams and language and a count for that as well. We also need a way to track the Unique N Grams so I used a set here.
+        Now for the model itself. We needed to solve the Probability Formulas from our given inputs and features to work with. 
+The first is to implement the P(word | Language) with lambda smoothing. The equation is: 
+(myMap (( Language , ngrams)) + lambda) / (myMap (( Language , ngrams )) + lambda * uniqueNGrams + 1)
+
+
+Without smoothing it would be:
+myMap((Language lang, "ngram")) / myMap((Language lang , " ngram"))
+
+
+The next is P(Language). This is relatively straightforward and is just the P that the given language appears across all the language in the corpus. So an equation like this:
+P(Language) = (docMap(language)) / ( number of documents in the corpus )
+That would be the docCount variable that you needed to track in the corpus.
+
+
+For P(Document, Language), we need certain things like the first 2 functions. Each ngram in the document returns a probability from word | language and the return of that is multipled to make the final probability. This is for all n grams in the given document. The formula for this is : 
+P( language ) * ∏ (across each n gram) * P (word | language).
+Where the n gram could be anything, like a bigram or a trigram, etc..
+
+
+The final part of the model is you can take the document as a parameter return the highest scoring language as a Language Object. This should print out the language that should be the highest for the training set and the test set, one which we “aren’t” supposed to know the results of. 
+The way this works is you want to loop through your map of language and counts and use your P(Document, Language) function for each counter, or in our case, each language as a key of the map. Then we can find the highest scoring language and output that as a Language object. You want the language as  key in the prior probability we found.
+A pseudo code formula would be something like this:
+myMap(key) ->for each key {
+language => P(doc | language)
+if(P (doc | language) > Max){
+        Max = P(doc | language)
+        NewKey = language
+}
+Return Language(Key)
+}
+
+
+
+
+
+
