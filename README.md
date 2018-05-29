@@ -22,7 +22,7 @@ replace L with the lambda smoothing parameter and N as the specified n-gram leng
 
  scala -cp path_to_jar lin567_p1.Run train.labeled dev.labeled 1 3
 
-We also had a perl script that was prepared to us for evaluation in evaluate.p1. To evaluate our models, we use:
+To execute the perl script for evaluation in evaluate.p1. To evaluate our models, we use:
 
  scala -cp path_to_jar lin567_p1.Run train.labeled dev.labeled 3 1 | ./evaluate.pl –gold dev.labeled
 
